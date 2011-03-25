@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+  <title>Chat app</title>
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.js'></script>
+  <script>
+    $(function () {
+      var listen = function () {
+        $.get('/listen', function (text) {
+          new_message(text);
+          listen();
+        }).error(function () {
+          setTimeout(listen, 1000);
+        });
+      };
+      listen();
+
+      var new_message = function (text) {
+        $('#log').append($('<div>').text(text));
+      };
+
+      $.getJSON('/log', function (log) {
+        log.forEach(function (text) {
+          new_message(text);
+        });
+      });
+
+      $('button').click(function () {
+        $.post('/send', $('input').val());
+        $('input').val('');
+      });
+    });
+  </script>
+  </head>
+  <body>
+    <div id='log'></div>
+    <input></input>
+    <button>Say this</button>
+  </body>
+</html>

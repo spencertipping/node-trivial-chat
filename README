@@ -1,0 +1,9 @@
+The chat app developed for the Frontier node.js meetup
+
+To use:
+$ node server.js
+
+Then point one or more browsers at <your-ip>:8080/
+
+For something a bit less trivial, check out BrowserPower:
+github.com/spencertipping/browserpower
